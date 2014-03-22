@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>我的LUMIA与众不同</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta name="MobileOptimized" content="240">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/slotmachine.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('.slot_btn').click();
+        })
+    </script>
+    <script type="text/javascript">
+        //弹出遮罩层
+        $(function(){
+            $(".btn_confirm").click(function(event){
+                var e=window.event || event;
+                if(e.stopPropagation){
+                    e.stopPropagation();
+                }else{
+                    e.cancelBubble = true;
+                }
+                $("#hidebg").css({
+                    display: "block"
+                });
+                $("#popDiv").show();
+            });
+            $(".divimg").click(function(event){
+                var e=window.event || event;
+                if(e.stopPropagation){
+                    e.stopPropagation();
+                }else{
+                    e.cancelBubble = true;
+                }
+            });
+            document.onclick = function(){
+                $("#hidebg,#popDiv").hide();
+            };
+        })
+
+
+        //关闭灰色 jQuery 遮罩
+        function closeBg() {
+            $("#hidebg,#popDiv").hide();
+        }
+
+        //显示灰色 jQuery 遮罩层 弹出信息填写框
+        function showBg2() {
+            $("#hidebg2").css({
+                display: "block"
+            });
+            $("#popDiv2").show();
+
+
+        }
+        //关闭灰色 jQuery 遮罩 关闭信息填写框
+        function closeBg2() {
+            var name = $('#name').val();
+            var tel = $('#tel').val();
+            var address = $('#address').val();
+            $.ajax({
+                type : 'POST',
+                url : '__URL__/info',
+                cache : false,
+                data : '&name=' + name + '&tel=' + tel + '&address=' + address,
+                success : function(ress){
+
+                }
+            });
+            $("#hidebg2,#popDiv2").hide();
+        }
+
+
+    </script>
+</head>
+<body>
+
+<div style="display: none;">
+    <img src="__PUBLIC__/images/infobg.png">
+</div>
+<input type="button"  class="slot_btn" style="display:none" value="开始" />
+
+<!--遮罩层1  start-->
+<div id="popDiv" class="mydiv" style="display:none;">
+    <a href="javascript:closeBg()" class="icon_close"></a>
+    <div class="divimg">
+        <img src="__PUBLIC__/images/popdiv.jpg"/>
+    </div>
+</div>
+<div id="hidebg" class="hidebg" style="display:none"></div>
+<!--遮罩层1  end-->
+
+<div class="container">
+    <div class="header">
+        <div class="logo"><a href="#"></a></div>
+    </div>
+    <div class="clear"></div>
+    <div class="text1"></div>
+    <div class="clear20"></div>
+    <div class="content">
+        <div class="text2"></div>
+        <div class="jiangbox">
+            <div id="slotpop" class="slotpop">
+                <div id="slotbox" class="slotbox">
+                    <div id="playbox">
+                        <div class="slotline" id="slotline1">
+                            <div class="myfruits">
+                                <div class="line_ line1"></div>
+                                <div class="line_ line2"></div>
+                                <div class="line_ line3"></div>
+                                <div class="line_ line4"></div>
+                                <div class="line_ line5"></div>
+                                <div class="line_ line6"></div>
+                                <div class="line_ line7"></div>
+                            </div>
+                        </div>
+                        <div class="slotline" id="slotline2">
+                            <div class="myfruits">
+                                <div class="line_ line1"></div>
+                                <div class="line_ line2"></div>
+                                <div class="line_ line3"></div>
+                                <div class="line_ line4"></div>
+                                <div class="line_ line5"></div>
+                                <div class="line_ line6"></div>
+                                <div class="line_ line7"></div>
+                            </div>
+                        </div>
+                        <div class="slotline" id="slotline3">
+                            <div class="myfruits">
+                                <div class="line_ line1"></div>
+                                <div class="line_ line2"></div>
+                                <div class="line_ line3"></div>
+                                <div class="line_ line4"></div>
+                                <div class="line_ line5"></div>
+                                <div class="line_ line6"></div>
+                                <div class="line_ line7"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="slotbot_info">
+
+                        <div id="slotinfo2" class="slotinfo"  style="display:none;">
+                            <!--遮罩层2  start-->
+                            <div id="popDiv2" class="mydiv">
+                                <div class="divimg2" style="padding-top:40px;">
+                                    <p class="slot_motto popinfo"></p>
+                                    <a href="javascript:closeBg2()" class="btn_confirm"></a>
+                                </div>
+                            </div>
+                            <div id="hidebg2" class="hidebg"></div>
+                            <!--遮罩层2  end-->
+                        </div>
+
+                        <div class="slotinfo" id="slotinfo4" style="display:none;">
+                            <!--遮罩层2  start-->
+                            <div id="popDiv2" class="mydiv">
+                                <div class="divimg2">
+                                    <p class="popinfo">恭喜您获得Lumia 1320手机一部，请填写详细信息，我将会把奖品寄到</p>
+                                    <ul class="infotable">
+                                        <li><div class="fr"><input type="text" id="name" class="textclass"/></div>姓名</li>
+                                        <div class="clear2"></div>
+                                        <li><div class="fr"><input type="text" id="tel" class="textclass"/></div>手机号</li>
+                                        <div class="clear2"></div>
+                                        <li><div class="fr"><textarea class="areaclass" id="address"></textarea></div>收货地址</li>
+                                        <div class="clear2"></div>
+                                    </ul>
+                                    <a href="javascript:closeBg2()" class="btn_confirm"></a>
+                                </div>
+                            </div>
+                            <div id="hidebg2" class="hidebg"></div>
+                            <!--遮罩层2  end-->
+                        </div>
+                    </div>
+
+                </div>
+                <eq name="Think.cookie.isold" value="true">
+                    <div class="slotbar" title="点击拉杆开始抽奖" onclick="alert('您已经参加过此次活动了，请勿重复参加！');"></div>
+
+                    <else/>
+                    <div class="slotbar" title="点击拉杆开始抽奖" id="slotbar"></div>
+                </eq>
+            </div>
+        </div>
+    </div>
+    <div class="clear20"></div>
+    <div class="bottom">
+        <div class="botright"></div>
+        <div class="botleft"></div>
+    </div>
+    <div class="clear"></div>
+</div>
+<div style="display: none;">
+    <script src="http://s5.cnzz.com/stat.php?id=5851816&web_id=5851816" language="JavaScript"></script>
+</div>
+</body>
+
+</html>

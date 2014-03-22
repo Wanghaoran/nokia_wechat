@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>我的LUMIA与众不同</title>
+    <meta http-equiv="Cache-Control" content="max-age=3600">
+    <meta name="MobileOptimized" content="240">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,  minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+    <script type="text/javascript" src="__PUBLIC__/js/jquery-1.4.1.js"></script>
+    <script type="text/javascript">
+        ;(function($){
+            $.fn.hradio = function(options){
+                var self = this;
+                return $(':radio+label',this).each(function(){
+                    $(this).addClass('hRadio');
+                    if($(this).prev().is(":checked"))
+                        $(this).addClass('hRadio_Checked');
+                }).click(function(event){
+                            $(this).siblings().removeClass("hRadio_Checked");
+                            if(!$(this).prev().is(':checked')){
+                                $(this).addClass("hRadio_Checked");
+                                $(this).prev()[0].checked = true;
+                            }
+
+                            event.stopPropagation();
+                        })
+                        .prev().hide();
+            }
+        })(jQuery)
+    </script>
+    <script type="text/javascript">
+        $(function(){
+            //单选按钮
+            $('#radiolist').hradio();
+        });
+
+        //显示灰色 jQuery 遮罩层
+        function showBg() {
+
+            $("#hidebg").css({
+                display: "block"
+            });
+            $("#popDiv").show();
+
+
+        }
+        //关闭灰色 jQuery 遮罩
+        function closeBg() {
+            $("#hidebg,#popDiv").hide();
+            location.reload();
+        }
+
+        var checks = function(){
+            var val = $('input:radio[name="r"]:checked').val();
+            if(val == null){
+                alert("请至少选择一个选项");
+                return false;
+            }
+            if(val == '<-{$q.right}->'){
+                location.href = '__URL__/check';
+            }else{
+                showBg();
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div style="display: none;">
+    <img src="__PUBLIC__/images/radiobg.jpg">
+</div>
+<!--遮罩层  start-->
+<div id="popDiv" class="mydiv" style="display:none;">
+    <div class="divimg" style="position:relative;">
+        <img src="__PUBLIC__/images/nobg.gif" width="300" border="0"/>
+
+        <a href="javascript:closeBg()" class="btn_continu"></a>
+    </div>
+</div>
+</div>
+<div id="hidebg" class="hidebg" style="display:none"></div>
+<!--遮罩层  end-->
+<div class="container">
+    <div class="header">
+        <div class="logo"><a href="#"></a></div>
+        <div class="hd_qa"></div>
+    </div>
+    <div class="clear"></div>
+    <div class="content">
+        <div class="qabox">
+            <div class="qa_title"><h2><-{$q.q}-></h2></div>
+            <div class="qa_con">
+                <div id="radiolist">
+                    <volist name="q.a" id="qa">
+                        <input name='r' type="radio" value='<-{$key}->' /><label><div class="as"><div class="as_num"><-{$key}-></div><div class="as_con"><-{$qa}-></div></div></label>
+                    </volist>
+                </div>
+            </div>
+        </div>
+        <div class="btn"><a href="#" onClick="checks();" class="btn_over"></a></div>
+    </div>
+    <div class="clear"></div>
+
+</div>
+<div style="display: none;">
+    <script src="http://s5.cnzz.com/stat.php?id=5851816&web_id=5851816" language="JavaScript"></script>
+</div>
+</body>
+<script>
+    $(function(){
+        $.each($('label.hRadio_Checked'), function(key,val){
+            $(val).removeClass('hRadio_Checked');
+            $(val).prev()[0].checked = false;
+        });
+    });
+</script>
+
+
+</html>
