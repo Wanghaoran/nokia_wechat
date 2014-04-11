@@ -5,7 +5,11 @@ class IndexAction extends Action {
         $ip = get_client_ip();
         $ip_json = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip);
         $ip_arr = json_decode($ip_json, true);
-        dump($ip_arr);
+        if($ip_arr['data']['city_id'] == '110000' || $ip_arr['data']['city_id'] == ''){
+            echo '您是北京用户';
+        }else{
+            echo '您不是北京用户';
+        }
         $this -> display();
     }
 
