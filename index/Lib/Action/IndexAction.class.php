@@ -52,6 +52,7 @@ class IndexAction extends Action {
             $result['resultCode'] = 1;
         }
 
+
         //记录抽奖信息
         $list = M('List');
         $list_data = array();
@@ -59,7 +60,7 @@ class IndexAction extends Action {
         $list_data['num'] = $result['num'];
         $list_data['city'] = $ip_arr['city'];
         $list_data['time'] = time();
-        $list -> add($list);
+        $list -> add($list_data);
 
         echo json_encode($result);
         //计数加1
