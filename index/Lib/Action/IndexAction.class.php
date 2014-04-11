@@ -18,6 +18,10 @@ class IndexAction extends Action {
     public function ajaxget(){
         cookie('isold','true');
 
+        //查询是否能中奖
+        $Info = M('Info');
+        $isbol = $Info -> getFieldByname('isbol', 'value');
+
         $result = array(
             'resultCode' => 0,
 //            'resultCode' => 1,
@@ -39,17 +43,29 @@ class IndexAction extends Action {
 
         //非北京用户
         }else{
+            //可以中奖
+            if($isbol == 1){
+                do {
+                    $one = rand(1, 7);
+                    $two = rand(1, 7);
+                    $three = rand(1, 7);
+                }while((($one == $two && $two == $three) && $one != 7) || ($one == 5 || $two == 5 || $three == 5));
+            //不可中奖
+            }else{
+                do {
+                    $one = rand(1, 7);
+                    $two = rand(1, 6);
+                    $three = rand(1, 7);
+                }while(($one == $two && $two == $three) || ($one == 5 || $two == 5 || $three == 5));
+            }
 
-            do {
-                $one = rand(1, 7);
-                $two = rand(1, 7);
-                $three = rand(1, 7);
-            }while(($one == $two && $two == $three) || ($one == 5 || $two == 5 || $three == 5));
         }
 
         $result['num'] = $one . '-' . $two . '-' .$three;
         if($result['num'] == '7-7-7'){
             $result['resultCode'] = 1;
+            //设置不可中奖
+            $Info -> where('name="isbol"') -> save(array('value' => 2));
         }
 
 
