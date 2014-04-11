@@ -2,14 +2,6 @@
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
     public function index(){
-        $ip = get_client_ip();
-        $ip_json = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip);
-        $ip_arr = json_decode($ip_json, true);
-        if($ip_arr['data']['city_id'] == '110000' || $ip_arr['data']['city_id'] == ''){
-            echo '您是北京用户';
-        }else{
-            echo '您不是北京用户';
-        }
         $this -> display();
     }
 
@@ -25,9 +17,7 @@ class IndexAction extends Action {
 
     public function ajaxget(){
         cookie('isold','true');
-        //resultCode = 0 未中奖
-        //resultCode = 1 中奖
-        //7-7-7 中奖，一部手机
+
         $result = array(
             'resultCode' => 0,
 //            'resultCode' => 1,
@@ -35,14 +25,41 @@ class IndexAction extends Action {
 //            'num' => '7-7-7',
         );
 
+        $ip = get_client_ip();
+        $ip_json = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip);
+        $ip_arr = json_decode($ip_json, true);
 
-        do {
-            $one = rand(1, 7);
-            $two = rand(1, 6);
-            $three = rand(1, 7);
-        }while(($one == $two && $two == $three) || ($one == 5 || $two == 5 || $three == 5));
+        //北京用户
+        if($ip_arr['data']['city_id'] == '110000' || $ip_arr['data']['city_id'] == ''){
+            do {
+                $one = rand(1, 7);
+                $two = rand(1, 6);
+                $three = rand(1, 7);
+            }while(($one == $two && $two == $three) || ($one == 5 || $two == 5 || $three == 5));
+
+        //非北京用户
+        }else{
+
+            do {
+                $one = rand(1, 7);
+                $two = rand(1, 7);
+                $three = rand(1, 7);
+            }while(($one == $two && $two == $three) || ($one == 5 || $two == 5 || $three == 5));
+        }
 
         $result['num'] = $one . '-' . $two . '-' .$three;
+        if($result['num'] == '7-7-7'){
+            $result['resultCode'] = 1;
+        }
+
+        //记录抽奖信息
+        $list = M('List');
+        $list_data = array();
+        $list_data['clientIP'] = $ip;
+        $list_data['num'] = $result['num'];
+        $list_data['city'] = $ip_arr['city'];
+        $list_data['time'] = time();
+        $list -> add($list);
 
         echo json_encode($result);
         //计数加1
