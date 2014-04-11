@@ -58,7 +58,7 @@ class IndexAction extends Action {
         $list_data = array();
         $list_data['clientIP'] = $ip;
         $list_data['num'] = $result['num'];
-        $list_data['city'] = $ip_arr['city'];
+        $list_data['city'] = $ip_arr['data']['city'] ? $ip_arr['data']['city'] : '未知';
         $list_data['time'] = time();
         $list -> add($list_data);
 
