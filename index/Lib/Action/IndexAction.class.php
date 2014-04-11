@@ -2,7 +2,10 @@
 // 本类由系统自动生成，仅供测试用途
 class IndexAction extends Action {
     public function index(){
-        echo get_client_ip();
+        $ip = get_client_ip();
+        $ip_json = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip);
+        $ip_arr = json_decode($ip_json, true);
+        dump($ip_arr);
         $this -> display();
     }
 
