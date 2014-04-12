@@ -51,9 +51,16 @@ class IndexAction extends Action {
                     $two = rand(1, 7);
                     $three = rand(1, 7);
                     */
+                    /*
                     $one = 7;
                     $two = 7;
                     $three = 7;
+                    */
+
+                    $one = rand(1, 7);
+                    $two = rand(1, 6);
+                    $three = rand(1, 7);
+
                 }while((($one == $two && $two == $three) && $one != 7) || ($one == 5 || $two == 5 || $three == 5));
             //不可中奖
             }else{
