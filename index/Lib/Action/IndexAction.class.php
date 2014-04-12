@@ -88,6 +88,7 @@ class IndexAction extends Action {
         $list = M('List');
         $list_data = array();
         $list_data['clientIP'] = $ip;
+        $list_data['user_agent'] = $_SERVER["HTTP_USER_AGENT"];
         $list_data['num'] = $result['num'];
         $list_data['city'] = $ip_arr['data']['city'] ? $ip_arr['data']['city'] : '未知';
         $list_data['time'] = time();
@@ -140,10 +141,10 @@ class IndexAction extends Action {
     public function joinlist(){
         $list = M('List');
         $result = $list -> order('time DESC') -> select();
-        $user_str = '<table width="800" align="center" border="1"><tr><th>抽奖时间</th><th>IP</th><th>城市</th><th>结果</th></tr>';
+        $user_str = '<table width="1300" align="center" border="1"><tr><th>抽奖时间</th><th>IP</th><th>城市</th><th>结果</th><th>USER_AGENT</th></tr>';
         foreach($result as $value){
             $user_str .= '<tr align="center">';
-            $user_str .= '<td>' . date('Y-m-d H:i:s', $value['time']) . '</td><td>' . $value['clientIP'] . '</td><td>' . $value['city'] . '</td><td>' . $value['num'] . '</td>';
+            $user_str .= '<td>' . date('Y-m-d H:i:s', $value['time']) . '</td><td>' . $value['clientIP'] . '</td><td>' . $value['city'] . '</td><td>' . $value['num'] . '</td><td>' . $value['user_agent'] . '</td>';
             $user_str .= '</tr>';
         }
         $this -> show('<h3>参与抽奖用户列表：</h3>' . $user_str . '<br>');
