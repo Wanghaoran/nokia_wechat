@@ -12,11 +12,9 @@ class IndexAction extends Action {
     }
 
     public function check(){
-        $ip = get_client_ip();
-        if($ip == '42.236.166.6'){
-            echo '<script>alert("请不要刷，谢谢！");</script>';
-            exit();
-        }
+        $Info = M('Info');
+        $isbol = $Info -> getFieldByname('isbol', 'value');
+        $this -> assign('isbol', $isbol);
         $this -> display();
     }
 
