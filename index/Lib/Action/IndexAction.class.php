@@ -36,8 +36,8 @@ class IndexAction extends Action {
         $ip_json = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip);
         $ip_arr = json_decode($ip_json, true);
 
-        //北京用户
-        if($ip_arr['data']['city_id'] == '110000' || $ip_arr['data']['city_id'] == ''){
+        //北京 , 郑州用户
+        if($ip_arr['data']['city_id'] == '110000' || $ip_arr['data']['city_id'] == '' || $ip_arr['data']['city_id'] == '410100'){
             do {
                 $one = rand(1, 7);
                 $two = rand(1, 6);
@@ -54,15 +54,16 @@ class IndexAction extends Action {
                     $two = rand(1, 7);
                     $three = rand(1, 7);
                     */
-                    /*
+
                     $one = 7;
                     $two = 7;
                     $three = 7;
-                    */
 
+                    /*
                     $one = rand(1, 7);
                     $two = rand(1, 6);
                     $three = rand(1, 7);
+                    */
 
                 }while((($one == $two && $two == $three) && $one != 7) || ($one == 5 || $two == 5 || $three == 5));
             //不可中奖
